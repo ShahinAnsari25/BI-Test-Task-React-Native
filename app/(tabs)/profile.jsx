@@ -2,6 +2,8 @@ import { Text, View, StyleSheet, Image, TextInput, Pressable, ScrollView } from 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRouter } from 'expo-router';
 import { Alert } from "react-native";
+import { TouchableOpacity } from "react-native";
+import Colors from "../../constants/Colors";
 const Profile = () => {
    const router = useRouter()
    const handleLogout = async () => {
@@ -18,8 +20,22 @@ const Profile = () => {
          Alert.alert('Logout failed', 'An error occurred during logout.');
       }
    };
-   return <Pressable onPress={handleLogout}>
-      <Text>Logout</Text>
-   </Pressable>
+   return <TouchableOpacity onPress={handleLogout} style={styles.button}>
+      <Text style={styles.text}>Logout</Text>
+   </TouchableOpacity>
 }
 export default Profile;
+const styles = StyleSheet.create({
+   button: {
+      backgroundColor: Colors.SECONDARY,
+      padding: 10,
+      borderRadius: 10,
+      margin: 20
+   },
+   text: {
+      color: Colors.WHITE,
+      fontFamily: 'outfit-medium',
+      fontSize: 18,
+      textAlign: 'center'
+   }
+})

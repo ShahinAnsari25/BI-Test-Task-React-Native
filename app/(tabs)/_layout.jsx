@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs } from "expo-router"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from "../../constants/Colors"
+import Entypo from '@expo/vector-icons/Entypo';
 const TabsLayout = () => {
    return (<Tabs
       screenOptions={{
@@ -18,8 +19,8 @@ const TabsLayout = () => {
       <Tabs.Screen name="cart"
          options={{
             title: 'Cart',
-            headerShown: false,
-            tabBarIcon: ({ color }) => <Ionicons name="heart" size={24} color={color} />
+            // headerShown: false,
+            tabBarIcon: ({ color }) => <Entypo name="shopping-cart" size={24} color={color} />
          }}
       />
       <Tabs.Screen name="profile"
