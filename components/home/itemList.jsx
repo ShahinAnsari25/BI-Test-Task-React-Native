@@ -12,7 +12,7 @@ const dataset = [
       "stock": 94,
       "brand": "Apple",
       "category": "smartphones",
-      "thumbnail": "https://img.freepik.com/free-vector/smartphone-with-gradient-wallpaper_23-2147843161.jpg?t=st=1726741577~exp=1726745177~hmac=1bdab62d4cd175eeb7540a7406f4b95b1bbf1be1a9ba1bbaa9f1e94d8bbc8f03&w=740",
+      "thumbnail": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437071.jpg?t=st=1726753370~exp=1726756970~hmac=ef6c35da12c1faaa581cd0a4037f7a2fda03e58128d90cee2157353cc6a2fe72&w=740",
       "images": [
          null
       ]
@@ -27,7 +27,7 @@ const dataset = [
       "stock": 34,
       "brand": "Apple",
       "category": "smartphones",
-      "thumbnail": "https://img.freepik.com/free-vector/smartphone-with-gradient-wallpaper_23-2147843161.jpg?t=st=1726741577~exp=1726745177~hmac=1bdab62d4cd175eeb7540a7406f4b95b1bbf1be1a9ba1bbaa9f1e94d8bbc8f03&w=740",
+      "thumbnail": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437071.jpg?t=st=1726753370~exp=1726756970~hmac=ef6c35da12c1faaa581cd0a4037f7a2fda03e58128d90cee2157353cc6a2fe72&w=740",
       "images": [
          null
       ]
@@ -760,7 +760,7 @@ const ItemList = () => {
       <FlatList
          data={dummyData}
          renderItem={({ item, index }) => (
-            <Item></Item>
+            <Item item={item}></Item>
          )}
       >
 
