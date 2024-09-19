@@ -1,16 +1,28 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import Colors from "../../constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItemToCart, removeItemFromCart, updateItemQuantity, clearCart } from '../../reduxStore/cartSlice.js';
+import { useState } from "react";
+import { useRouter } from "expo-router";
+
 const Total = () => {
+   const dispatch = useDispatch();
+   const router = useRouter()
+   const handleCheckout = () => {
+      dispatch(clearCart())
+      router.push('/checkOut')
+   }
+   const totalAmount = useSelector((state) => state.cart.totalAmount);
    return <View style={styles.container}>
       <View style={styles.sum}>
          <Text style={styles.total}>Total amount</Text>
          <View style={styles.totalAmount}>
             <FontAwesome name="rupee" size={17} color={Colors.BLACK} />
-            <Text style={styles.price}>3000 /-</Text>
+            <Text style={styles.price}>{totalAmount.toFixed(2)} /-</Text>
          </View>
       </View>
-      <TouchableOpacity style={styles.confirmOrder}>
+      <TouchableOpacity onPress={handleCheckout} style={styles.confirmOrder}>
          <Text style={styles.confirmOrderText}>PLACE ORDER</Text>
       </TouchableOpacity>
    </View>

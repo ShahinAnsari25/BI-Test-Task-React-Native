@@ -3,11 +3,30 @@ import Colors from "../../constants/Colors";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { TouchableOpacity } from "react-native";
+import { useSelector, useDispatch } from 'react-redux';
+import { addItemToCart, removeItemFromCart, updateItemQuantity, clearCart } from '../../reduxStore/cartSlice.js';
+import { useState } from "react";
 const Item = ({ item }) => {
+   const [quantity, setQuantity] = useState("1");
    const price = parseFloat(item.price);
    const discount = parseFloat(item.discountPercentage);
    const discountAmount = (discount / 100) * price;
    const finalPriceValue = price - discountAmount;
+
+   const dispatch = useDispatch();
+
+   const handleAddItem = () => {
+      dispatch(addItemToCart({
+         "id": item.id,
+         "title": item.title,
+         "thumbnail": item?.thumbnail,
+         "price": finalPriceValue.toFixed(2),
+         "quantity": parseInt(quantity),
+      }));
+      console.log(parseInt(quantity));
+
+   };
+
    return <View style={styles.container}>
 
       <Image style={styles.image} source={{ uri: item?.thumbnail }}></Image>
@@ -18,7 +37,10 @@ const Item = ({ item }) => {
             <View style={styles.inputContainer}><TextInput
                style={styles.input}
                keyboardType="numeric"
-               defaultValue="1"
+               value={quantity}
+               onChangeText={(text) => {
+                  setQuantity(text);
+               }}
             ></TextInput></View>
             <View style={styles.priceContainer}>
                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
@@ -34,7 +56,7 @@ const Item = ({ item }) => {
 
             </View>
          </View>
-         <TouchableOpacity style={styles.addToCartButton}>
+         <TouchableOpacity style={styles.addToCartButton} onPress={handleAddItem}>
             <Text style={styles.addToCartText}>Add To Cart</Text>
          </TouchableOpacity>
       </View>
