@@ -11,15 +11,15 @@ const CartItem = ({ item }) => {
    const handleRemoveItem = () => {
       dispatch(removeItemFromCart(item.id));
    };
-   const [quantity, setQuantity] = useState(item.quantity.toString()); // Initialize quantity as string
+   const [quantity, setQuantity] = useState(item.quantity.toString());
 
    const handleQuantityChange = (text) => {
-      const numericValue = parseInt(text, 10); // Convert the input to a number
+      const numericValue = parseInt(text, 10);
       if (!isNaN(numericValue)) {
-         setQuantity(numericValue); // Only update if it's a valid number
+         setQuantity(numericValue);
          dispatch(updateItemQuantity({ "id": item.id, "quantity": numericValue }));
       } else {
-         // setQuantity(1); // Optionally set a default if the input is not valid
+
       }
 
    };
@@ -35,8 +35,8 @@ const CartItem = ({ item }) => {
       <TextInput
          style={styles.input}
          keyboardType="numeric"
-         value={quantity.toString()}  // Ensure value is a string for TextInput
-         onChangeText={handleQuantityChange}  // Convert and store as a number
+         defaultValue={quantity.toString()}
+         onChangeText={handleQuantityChange}
       ></TextInput>
       <View style={styles.priceContainer}>
          <FontAwesome name="rupee" size={17} color={Colors.BLACK} />

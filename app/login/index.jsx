@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, TextInput, Pressable, ScrollView } from "react-native";
+import { Text, View, StyleSheet, Image, TextInput, Pressable, ScrollView, ActivityIndicator } from "react-native";
 import { Dimensions } from 'react-native';
 import { useEffect } from "react";
 const { width, height } = Dimensions.get('window');
@@ -7,11 +7,13 @@ import { useForm, Controller } from 'react-hook-form';
 import Colors from "@/constants/Colors";
 import { Link } from "expo-router";
 import { auth } from "../../config/firebaseConfig"
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Import auth method
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from "react";
 
 const LoginScreen = () => {
+  const [loading, setLoading] = useState(false); // State to track loading
   const navigation = useNavigation()
   const router = useRouter()
   useEffect(() => {
@@ -32,14 +34,18 @@ const LoginScreen = () => {
 
   // Function to handle form submission
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       await AsyncStorage.setItem('userEmail', data.email);
       Alert.alert('Success', 'Logged in successfully!');
       router.replace('/(tabs)/home');
-      // Navigate to your home screen or other screen after successful login
+      // Navigate to your home screen after successful login
     } catch (error) {
       Alert.alert('Login failed', error.message);
+    }
+    finally {
+      setLoading(false); // Reset loading state after processing
     }
   };
   return (
@@ -94,8 +100,13 @@ const LoginScreen = () => {
         {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
 
         {/* Submit Button */}
-        <Pressable style={styles.submit} title="Submit" onPress={handleSubmit(onSubmit)} >
-          <Text style={styles.submitText}>Login</Text>
+        <Pressable style={[styles.submit, loading && styles.disabledButton]} title="Submit" onPress={loading ? null : handleSubmit(onSubmit)} >
+
+          {loading ? (
+            <ActivityIndicator size="small" color="#fff" /> // Show loading indicator
+          ) : (
+            <Text style={styles.submitText}>Login</Text>
+          )}
         </Pressable>
         <View style={styles.newAccount}>
           <Text style={styles.newAcctext}>Don't have an account?</Text>
@@ -168,5 +179,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginTop: 10,
     textAlign: "center"
-  }
+  },
+  disabledButton: {
+    opacity: 0.6,
+  },
 })

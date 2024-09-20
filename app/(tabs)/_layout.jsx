@@ -19,7 +19,6 @@ const TabsLayout = () => {
       <Tabs.Screen name="cart"
          options={{
             title: 'Cart',
-            // headerShown: false,
             tabBarIcon: ({ color }) => <Entypo name="shopping-cart" size={24} color={color} />
          }}
       />

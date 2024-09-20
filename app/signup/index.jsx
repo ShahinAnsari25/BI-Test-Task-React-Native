@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, TextInput, Pressable, ScrollView } from "react-native";
+import { Text, View, StyleSheet, Image, TextInput, Pressable, ScrollView, ActivityIndicator } from "react-native";
 import { Dimensions } from 'react-native';
 import { useEffect } from "react";
 const { width, height } = Dimensions.get('window');
@@ -9,7 +9,9 @@ import { Link } from "expo-router";
 import { auth } from "../../config/firebaseConfig"
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import auth method
 import { Alert } from "react-native";
+import { useState } from "react";
 const SignupScreen = () => {
+   const [loading, setLoading] = useState(false); // State to track loading
    const navigation = useNavigation()
    useEffect(() => {
       navigation.setOptions({
@@ -22,45 +24,24 @@ const SignupScreen = () => {
 
    // Function to handle form submission
    const onSubmit = async (data) => {
-      console.log(data.email, data.password)
+      setLoading(true);
+
       try {
          await createUserWithEmailAndPassword(auth, data.email, data.password);
          Alert.alert('Success', 'Account created successfully!');
          reset()
       } catch (error) {
          Alert.alert('Signup failed', error.message);
-         console.log(error)
       }
-      console.log(data); // This will log the form data
+      finally {
+         setLoading(false);
+      }
    };
    return (
       <ScrollView>
          <Image style={styles.image} source={{ uri: "https://img.freepik.com/free-vector/hand-drawn-shopping-cartoon-illustration_23-2151168766.jpg?t=st=1726685111~exp=1726688711~hmac=9d53482873396f5553909d06568351d3adf4d2b429a56b8584d52a6a62901efd&w=740" }} />
          <Text style={styles.signupHeading}>Signup</Text>
          <View style={styles.container}>
-            {/* <Text style={styles.label}>Name:</Text>
-            <Controller
-               control={control}
-               name="name"
-               rules={{
-                  required: true,
-                  pattern: /^[A-Za-z]+$/
-               }}  // Email validation rule
-               render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                     style={styles.input}
-                     placeholder="Enter your name"
-                     onBlur={onBlur}
-                     onChangeText={onChange}
-                     value={value}
-                     keyboardType="name"
-                  />
-               )}
-            />
-            {errors.name && <Text style={styles.errorText}>Enter a valid name.</Text>}
-
- */}
-
             <Text style={styles.label}>Email:</Text>
             <Controller
                control={control}
@@ -108,8 +89,16 @@ const SignupScreen = () => {
             {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
 
             {/* Submit Button */}
-            <Pressable style={styles.submit} title="Submit" onPress={handleSubmit(onSubmit)} >
-               <Text style={styles.submitText}>Signup</Text>
+            <Pressable
+               style={[styles.submit, loading && styles.disabledButton]}
+               title="Submit"
+               onPress={loading ? null : handleSubmit(onSubmit)}
+            >
+               {loading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+               ) : (
+                  <Text style={styles.submitText}>Signup</Text>
+               )}
             </Pressable>
             <View style={styles.newAccount}>
                <Text style={styles.newAcctext}>Already a user?</Text>
@@ -182,5 +171,8 @@ const styles = StyleSheet.create({
       fontSize: 25,
       marginTop: 10,
       textAlign: "center"
-   }
+   },
+   disabledButton: {
+      opacity: 0.6,
+   },
 })

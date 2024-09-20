@@ -31,7 +31,8 @@ export default Total;
 const styles = StyleSheet.create({
    container: {
       padding: 20,
-      paddingTop: 0
+      paddingTop: 10,
+      backgroundColor: Colors.WHITE
    },
    total: {
       fontFamily: 'outfit-medium',

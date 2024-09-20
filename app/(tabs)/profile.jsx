@@ -6,17 +6,16 @@ import { TouchableOpacity } from "react-native";
 import Colors from "../../constants/Colors";
 const Profile = () => {
    const router = useRouter()
+   const navigation = useNavigation()
    const handleLogout = async () => {
       try {
          // Clear the stored email from AsyncStorage
          await AsyncStorage.removeItem('userEmail');
 
-         // Navigate back to the login screen
-         router.replace('/login');  // or navigation.reset() depending on your router setup
-
+         // // Navigate back to the login screen
+         router.replace('/login');
          Alert.alert('Logged out', 'You have been logged out successfully.');
       } catch (error) {
-         console.log('Error logging out:', error);
          Alert.alert('Logout failed', 'An error occurred during logout.');
       }
    };

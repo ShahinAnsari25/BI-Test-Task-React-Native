@@ -28,7 +28,7 @@ const dataset = [
       "stock": 34,
       "brand": "Apple",
       "category": "smartphones",
-      "thumbnail": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437071.jpg?t=st=1726753370~exp=1726756970~hmac=ef6c35da12c1faaa581cd0a4037f7a2fda03e58128d90cee2157353cc6a2fe72&w=740",
+      "thumbnail": "https://img.freepik.com/free-vector/display-template-with-mobile-phones_79603-1245.jpg?t=st=1726818950~exp=1726822550~hmac=a93e1fecf5d714682a94ff25d1b6ac008accbe86d0650c924b61e6522d613d5f&w=740",
       "images": [
          null
       ]
@@ -43,7 +43,7 @@ const dataset = [
       "stock": 36,
       "brand": "Samsung",
       "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "thumbnail": "https://img.freepik.com/free-vector/realistic-mobile-phone-with-games-apps_52683-29462.jpg?t=st=1726818976~exp=1726822576~hmac=b0bbcbef48970435d7c203d547269141faa6e2dcf3f367e8b5ab9653cf373ca7&w=740",
       "images": [
          null
       ]
@@ -58,7 +58,7 @@ const dataset = [
       "stock": 123,
       "brand": "OPPO",
       "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
+      "thumbnail": "https://img.freepik.com/free-vector/realistic-mobile-phone-with-games-apps_52683-29462.jpg?t=st=1726818976~exp=1726822576~hmac=b0bbcbef48970435d7c203d547269141faa6e2dcf3f367e8b5ab9653cf373ca7&w=740",
       "images": [
          null
       ]
@@ -774,7 +774,7 @@ const ItemList = () => {
             renderItem={({ item, index }) => <Item item={item} key={index} />}
             onEndReached={loadMoreData}          // Triggered when the user scrolls to the end
             onEndReachedThreshold={0.5}          // How close to the end to trigger onEndReached (50%)
-            ListFooterComponent={<View style={{ height: 50 }} />}  // Optional footer
+            ListFooterComponent={<View style={{ height: 50 }} />}
          />
       </View>
    );

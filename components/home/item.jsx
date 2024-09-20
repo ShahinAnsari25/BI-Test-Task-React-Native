@@ -23,8 +23,6 @@ const Item = ({ item }) => {
          "price": finalPriceValue.toFixed(2),
          "quantity": parseInt(quantity),
       }));
-      console.log(parseInt(quantity));
-
    };
 
    return <View style={styles.container}>
@@ -65,7 +63,6 @@ const Item = ({ item }) => {
 export default Item;
 const styles = StyleSheet.create({
    container: {
-      // marginVertical: 10,
       borderWidth: 1,
       borderColor: Colors.GRAY,
       borderRadius: 5,

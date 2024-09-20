@@ -1,12 +1,24 @@
 import { View, Text, StyleSheet } from "react-native"
 import Colors from "../../constants/Colors"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from "react"
+import { Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window');
 const Header = () => {
+   const [email, setEmail] = useState("")
+   useEffect(() => {
+      const checkLoggedIn = async () => {
+         const currentuser = await AsyncStorage.getItem('userEmail');
+         setEmail(currentuser)
+      };
+      checkLoggedIn()
+   }, [])
    return <View style={styles.container}>
-      <View>
-         <Text style={styles.text}>Shahin@gmail.com</Text>
+      <View style={{ width: width * 0.7, }}>
+         <Text style={styles.text}>{email}</Text>
       </View>
       <View style={styles.profile}>
-         <Text style={styles.profileText}>S</Text>
+         <Text style={styles.profileText}>{email ? email.charAt(0).toUpperCase() : ''}</Text>
       </View>
 
    </View>
@@ -15,7 +27,8 @@ export default Header;
 const styles = StyleSheet.create({
    text: {
       fontFamily: 'outfit-medium',
-      fontSize: 25
+      fontSize: 25,
+      flexWrap: 'wrap',
    },
    container: {
       padding: 20,
